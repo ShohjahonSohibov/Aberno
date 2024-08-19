@@ -1,8 +1,12 @@
 const mongoose = require('mongoose');
 
 const postSchema = new mongoose.Schema({
-  title: { type: String, required: true },
-  content: { type: String, required: true },
+  titleUz: { type: String },
+  titleRu: { type: String },
+  titleEn: { type: String },
+  contentUz: { type: String },
+  contentRu: { type: String },
+  contentEn: { type: String },
   author: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Admin' }],
   category: [{ type: mongoose.Schema.Types.ObjectId, ref: 'post_category' }],
   brand: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Brand' }],

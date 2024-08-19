@@ -27,9 +27,15 @@ const isAdminMiddleware = require('../middlewares/isAdminMiddleware');
  *         id:
  *           type: string
  *           description: The unique identifier of the brand
- *         name:
+ *         nameUz:
  *           type: string
- *           description: The name of the brand
+ *           description: The name of the brand in Uzbek
+ *         nameRu:
+ *           type: string
+ *           description: The name of the brand in Russian
+ *         nameEn:
+ *           type: string
+ *           description: The name of the brand in English
  *         category:
  *           $ref: '#/components/schemas/Category'
  *         isActive:
@@ -37,7 +43,9 @@ const isAdminMiddleware = require('../middlewares/isAdminMiddleware');
  *           description: Indicates if the brand is active
  *       example:
  *         id: "64a6c8b9d9f1e723f17c2c3b"
- *         name: "Brand Name"
+ *         nameUz: "Brend Nomi"
+ *         nameRu: "Название Бренда"
+ *         nameEn: "Brand Name"
  *         category:
  *           id: "64a6c8b9d9f1e723f17c2c3c"
  *           name: "Electronics"
@@ -55,7 +63,9 @@ const isAdminMiddleware = require('../middlewares/isAdminMiddleware');
  *         success: true
  *         data:
  *           id: "64a6c8b9d9f1e723f17c2c3b"
- *           name: "Brand Name"
+ *           nameUz: "Brend Nomi"
+ *           nameRu: "Название Бренда"
+ *           nameEn: "Brand Name"
  *           isActive: true
  * 
  *   securitySchemes:
@@ -140,7 +150,6 @@ router.get('/', brandController.getBrands);
  *         description: Server error
  */
 router.get('/filter', brandController.getFilterBrands);
-
 
 /**
  * @swagger

@@ -20,7 +20,13 @@ const isAdminMiddleware = require('../middlewares/isAdminMiddleware');
  *         brand:
  *           type: string
  *           description: The ID of the associated brand
- *         name:
+ *         nameUz:
+ *           type: string
+ *           description: The name of the category
+ *         nameRu:
+ *           type: string
+ *           description: The name of the category
+ *         nameEn:
  *           type: string
  *           description: The name of the category
  *         isActive:
@@ -29,7 +35,9 @@ const isAdminMiddleware = require('../middlewares/isAdminMiddleware');
  *       example:
  *         id: "64a6c8b9d9f1e723f17c2c3b"
  *         brand: "64a6c8b9d9f1e723f17c2c3c"
- *         name: "Category Name"
+ *         nameUz: "Category Name Uz"
+ *         nameRu: "Category Name Ru"
+ *         nameEn: "Category Name En"
  *         isActive: true
  * 
  *     CategoryResponse:
@@ -89,6 +97,7 @@ router.post('/', authMiddleware, isAdminMiddleware, categoryController.createCat
  *   get:
  *     summary: Get all categories
  *     tags: [Categories]
+ *     security: []
  *     responses:
  *       200:
  *         description: A list of categories
@@ -109,6 +118,7 @@ router.get('/', categoryController.getCategories);
  *   get:
  *     summary: Get a single category by ID
  *     tags: [Categories]
+ *     security: []
  *     parameters:
  *       - in: path
  *         name: id

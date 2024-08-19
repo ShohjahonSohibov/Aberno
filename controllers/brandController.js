@@ -3,19 +3,8 @@ const Category = require("../models/Category");
 
 // Create a new category
 exports.createBrand = async (req, res) => {
-  const { name } = req.body;
-
   try {
-    if (!name) {
-      return res.status(400).json({ message: "Brand name is required" });
-    }
-
-    const existingBrand = await Brand.findOne({ name });
-    if (existingBrand) {
-      return res.status(400).json({ message: "Brand already exists" });
-    }
-
-    const brand = new Brand({ name });
+    const brand = new Brand(req.body);
     await brand.save();
 
     res.status(201).json({ message: "Brand created successfully", brand });
@@ -50,9 +39,8 @@ exports.getFilterBrands = async (_, res) => {
 
     const brands = await Brand.find(query);
     for (let i = 0; i < brands.length; i++) {
-      const categories = await Category.findOne(query);
-      brands[i].category = {_id: categories.id, name: categories.name};
-      console.log(brands[i].category)
+      const category = await Category.findOne(query);
+      brands[i].category = category;
     }
     res.json(brands);
   } catch (err) {
@@ -80,19 +68,17 @@ exports.getSingleBrand = async (req, res) => {
 // Update a category
 exports.updateBrand = async (req, res) => {
   const { id } = req.params;
-  const { name } = req.body;
-
   try {
-    if (!name) {
-      return res.status(400).json({ message: "Brand name is required" });
-    }
-
     const brand = await Brand.findById({ _id: id });
     if (!brand) {
       return res.status(404).json({ message: "Brand not found" });
     }
 
-    brand.name = name;
+    brand.nameUz = req.body.nameUz;
+    brand.nameRu = req.body.nameRu;
+    brand.nameEn = req.body.nameEn;
+    brand.isActive = req.body.isActive;
+
     await brand.save();
 
     res.json({ message: "Brand updated successfully", brand });

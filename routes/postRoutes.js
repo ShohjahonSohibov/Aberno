@@ -11,19 +11,35 @@ const isAdminMiddleware = require('../middlewares/isAdminMiddleware');
  *     Post:
  *       type: object
  *       required:
- *         - title
- *         - content
+ *         - titleUz
+ *         - titleRu
+ *         - titleEn
+ *         - contentUz
+ *         - contentRu
+ *         - contentEn
  *         - author
  *       properties:
  *         id:
  *           type: string
  *           description: The unique ID of the post
- *         title:
+ *         titleUz:
  *           type: string
- *           description: The title of the post
- *         content:
+ *           description: The title of the post in Uzbek
+ *         titleRu:
  *           type: string
- *           description: The content of the post
+ *           description: The title of the post in Russian
+ *         titleEn:
+ *           type: string
+ *           description: The title of the post in English
+ *         contentUz:
+ *           type: string
+ *           description: The content of the post in Uzbek
+ *         contentRu:
+ *           type: string
+ *           description: The content of the post in Russian
+ *         contentEn:
+ *           type: string
+ *           description: The content of the post in English
  *         author:
  *           type: array
  *           items:
@@ -44,18 +60,13 @@ const isAdminMiddleware = require('../middlewares/isAdminMiddleware');
  *           items:
  *             type: string
  *           description: List of tag IDs
- *         comments:
- *           type: array
- *           items:
- *             type: string
- *           description: List of comment IDs
  *         publishedAt:
  *           type: string
- *           format: string
+ *           format: date-time
  *           description: The date and time the post was published
  *         scheduledAt:
  *           type: string
- *           format: string
+ *           format: date-time
  *           description: The date and time the post is scheduled for
  *         status:
  *           type: string
@@ -66,13 +77,16 @@ const isAdminMiddleware = require('../middlewares/isAdminMiddleware');
  *           description: Status indicating if the post is active
  *       example:
  *         id: "64a6c8b9d9f1e723f17c2c3b"
- *         title: "My First Post"
- *         content: "This is the content of the post."
+ *         titleUz: "Mening Birinchi Postim"
+ *         titleRu: "Мой первый пост"
+ *         titleEn: "My First Post"
+ *         contentUz: "Bu postning mazmuni."
+ *         contentRu: "Это содержание поста."
+ *         contentEn: "This is the content of the post."
  *         author: ["64a6c8b9d9f1e723f17c2c3c"]
  *         category: ["64a6c8b9d9f1e723f17c2c3d"]
  *         brand: ["64a6c8b9d9f1e723f17c2c3e"]
  *         tags: ["64a6c8b9d9f1e723f17c2c3f"]
- *         comments: ["64a6c8b9d9f1e723f17c2c3g"]
  *         publishedAt: "2024-08-16T00:00:00Z"
  *         scheduledAt: "2024-08-17T00:00:00Z"
  *         status: "draft"
@@ -121,6 +135,7 @@ router.post('/', authMiddleware, isAdminMiddleware, postController.createPost);
  *   get:
  *     summary: Get all posts with optional filters
  *     tags: [Posts]
+ *     security: []
  *     parameters:
  *       - in: query
  *         name: isActive
@@ -163,13 +178,13 @@ router.post('/', authMiddleware, isAdminMiddleware, postController.createPost);
  *         name: scheduledStartTime
  *         schema:
  *           type: string
- *           format: string
+ *           format: date-time
  *         description: Filter by start date of scheduling
  *       - in: query
  *         name: scheduledEndTime
  *         schema:
  *           type: string
- *           format: string
+ *           format: date-time
  *         description: Filter by end date of scheduling
  *     responses:
  *       200:
@@ -191,6 +206,7 @@ router.get('/', postController.getAllPosts);
  *   get:
  *     summary: Get a single post by ID
  *     tags: [Posts]
+ *     security: []
  *     parameters:
  *       - in: path
  *         name: id

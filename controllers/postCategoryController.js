@@ -2,19 +2,8 @@ const NewsCategory = require('../models/PostCategory'); // Import your Category 
 
 // Create a new category
 exports.createPostCategory = async (req, res) => {
-  const { name } = req.body;
-
   try {
-    if (!name) {
-      return res.status(400).json({ message: 'NewsCategory name is required' });
-    }
-
-    const existingNewsCategory = await NewsCategory.findOne({ name });
-    if (existingNewsCategory) {
-      return res.status(400).json({ message: 'NewsCategory already exists' });
-    }
-
-    const newsCategory = new NewsCategory({ name });
+    const newsCategory = new NewsCategory(req.body);
     await newsCategory.save();
 
     res.status(201).json({ message: 'NewsCategory created successfully', newsCategory });
@@ -59,19 +48,17 @@ exports.getSinglePostCategory = async (req, res) => {
 
 exports.updatePostCategory = async (req, res) => {
   const { id } = req.params;
-  const { name } = req.body;
-
   try {
-    if (!name) {
-      return res.status(400).json({ message: 'Category name is required' });
-    }
-
     const category = await NewsCategory.findById({_id: id});
     if (!category) {
       return res.status(404).json({ message: 'Category not found' });
     }
 
-    category.name = name;
+    category.nameUz = req.body.nameUz || category.nameUz;
+    category.nameRu = req.body.nameRu || category.nameRu;
+    category.nameEn = req.body.nameEn || category.nameEn;
+    category.isActive = req.body.isActive || category.isActive;
+    
     await category.save();
 
     res.json({ message: 'Category updated successfully', category });

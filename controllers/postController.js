@@ -72,9 +72,9 @@ exports.getAllPosts = async (req, res) => {
 
     const posts = await Post.find(query)
       .populate('author', '_id username')
-      .populate('category', '_id name')
-      .populate('brand', '_id name')
-      .populate('tags', '_id name')
+      .populate('category', '_id nameUz nameRu nameEn')
+      .populate('brand', '_id nameUz nameRu nameEn')
+      .populate('tags', '_id nameUz nameRu nameEn')
       .sort({'_id': -1});
 
       res.json(posts);
@@ -87,7 +87,7 @@ exports.getAllPosts = async (req, res) => {
 // Get a single post by ID
 exports.getPostById = async (req, res) => {
   try {
-    const post = await Post.findById(req.params.id).populate('author', 'username').populate('comments');
+    const post = await Post.findById(req.params.id).populate('author', 'username');
     
     if (!post) {
       return res.status(404).json({ message: 'Post not found' });
@@ -109,10 +109,6 @@ exports.updatePost = async (req, res) => {
       return res.status(404).json({ message: 'Post not found' });
     }
     
-    if (post.author.toString() !== req.user.id) {
-      return res.status(403).json({ message: 'Not authorized' });
-    }
-    
     await post.save();
     
     res.json(post);
@@ -125,23 +121,14 @@ exports.updatePost = async (req, res) => {
 // Delete a post
 exports.deletePost = async (req, res) => {
   try {
-    // Find the post by ID
     const post = await Post.findById(req.params.id);
 
-    // Check if the post exists
     if (!post) {
       return res.status(404).json({ message: 'Post not found' });
     }
 
-    // Check if the user is authorized to delete the post
-    if (post.author.toString() !== req.user.id) {
-      return res.status(403).json({ message: 'Permission denied' });
-    }
-
-    // Delete the post
     await Post.findByIdAndDelete(req.params.id);
 
-    // Return a success message
     res.json({ message: 'Post deleted successfully' });
   } catch (err) {
     console.error(err.message);

@@ -26,13 +26,31 @@ const isAdminMiddleware = require('../middlewares/isAdminMiddleware');
  *           schema:
  *             type: object
  *             properties:
- *               title:
+ *               titleUz:
+ *                 type: string
+ *                 example: "Yangi Mahsulot"
+ *               titleRu:
+ *                 type: string
+ *                 example: "Новый продукт"
+ *               titleEn:
  *                 type: string
  *                 example: "New Product"
- *               short_description:
+ *               short_descriptionUz:
+ *                 type: string
+ *                 example: "Mahsulotning qisqacha tavsifi."
+ *               short_descriptionRu:
+ *                 type: string
+ *                 example: "Краткое описание продукта."
+ *               short_descriptionEn:
  *                 type: string
  *                 example: "A short description of the product."
- *               description:
+ *               descriptionUz:
+ *                 type: string
+ *                 example: "Mahsulotning batafsil tavsifi."
+ *               descriptionRu:
+ *                 type: string
+ *                 example: "Подробное описание продукта."
+ *               descriptionEn:
  *                 type: string
  *                 example: "A detailed description of the product."
  *               image:
@@ -149,11 +167,23 @@ router.get('/:id', productController.getProductById);
  *           schema:
  *             type: object
  *             properties:
- *               title:
+ *               titleUz:
  *                 type: string
- *               short_description:
+ *               titleRu:
  *                 type: string
- *               description:
+ *               titleEn:
+ *                 type: string
+ *               short_descriptionUz:
+ *                 type: string
+ *               short_descriptionRu:
+ *                 type: string
+ *               short_descriptionEn:
+ *                 type: string
+ *               descriptionUz:
+ *                 type: string
+ *               descriptionRu:
+ *                 type: string
+ *               descriptionEn:
  *                 type: string
  *               image:
  *                 type: string
@@ -223,11 +253,23 @@ router.delete('/:id', authMiddleware, isAdminMiddleware, productController.delet
  *       properties:
  *         _id:
  *           type: string
- *         title:
+ *         titleUz:
  *           type: string
- *         short_description:
+ *         titleRu:
  *           type: string
- *         description:
+ *         titleEn:
+ *           type: string
+ *         short_descriptionUz:
+ *           type: string
+ *         short_descriptionRu:
+ *           type: string
+ *         short_descriptionEn:
+ *           type: string
+ *         descriptionUz:
+ *           type: string
+ *         descriptionRu:
+ *           type: string
+ *         descriptionEn:
  *           type: string
  *         image:
  *           type: string
@@ -244,8 +286,4 @@ router.delete('/:id', authMiddleware, isAdminMiddleware, productController.delet
  *           format: date-time
  */
 
-
-
 module.exports = router;
-
-

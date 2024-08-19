@@ -22,7 +22,9 @@ exports.getProducts = async (req, res) => {
     } 
 
     if (search) {
-      query["title"] = { $regex: search, $options: 'i' }; // Case-insensitive search
+      query["titleUz"] = { $regex: search, $options: 'i' }; // Case-insensitive search
+      query["titleRu"] = { $regex: search, $options: 'i' }; // Case-insensitive search
+      query["titleEn"] = { $regex: search, $options: 'i' }; // Case-insensitive search
     }
 
     const skip = (page - 1) * limit;
@@ -66,7 +68,6 @@ exports.getProductById = async (req, res) => {
 
 exports.updateProduct = async (req, res) => {
   try {
-    const { title, short_description, description, image, category, isActive } = req.body;
 
     const product = await Product.findById({_id: req.params.id});
 
@@ -74,11 +75,17 @@ exports.updateProduct = async (req, res) => {
       return res.status(404).json({ message: 'Product not found' });
     }
 
-    product.title = title || product.title;
-    product.short_description = short_description || product.short_description;
-    product.description = description || product.description;
-    product.image = image || product.image;
-    product.category = category || product.category;
+    product.titleUz = req.body.titleUz || product.titleUz;
+    product.titleRu = req.body.titleRu || product.titleRu;
+    product.titleEn = req.body.titleEn || product.titleEn;
+    product.short_descriptionUz = req.body.short_descriptionUz || product.short_descriptionUz;
+    product.short_descriptionRu = req.body.short_descriptionRu || product.short_descriptionRu;
+    product.short_descriptionEn = req.body.short_descriptionEn || product.short_descriptionEn;
+    product.descriptionUz = req.body.descriptionUz || product.descriptionUz;
+    product.descriptionRu = req.body.descriptionRu || product.descriptionRu;
+    product.descriptionEn = req.body.descriptionEn || product.descriptionEn;
+    product.image = req.body.image || product.image;
+    product.category = req.body.category || product.category;
     product.isActive = typeof isActive !== 'undefined' ? isActive : product.isActive;
 
     await product.save();

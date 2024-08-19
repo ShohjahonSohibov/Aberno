@@ -58,18 +58,26 @@ exports.getSingleTestimonial = async (req, res) => {
 
 exports.updateTestimonial = async (req, res) => {
   const { id } = req.params;
-  const { fullname, title, content, image } = req.body;
-
   try {
     const testimonial = await Testimonial.findById({_id: id});
     if (!testimonial) {
       return res.status(404).json({ message: 'Testimonial not found' });
     }
 
-    if (fullname) testimonial.fullname = fullname;
-    if (title) testimonial.title = title;
-    if (content) testimonial.content = content;
-    if (image) testimonial.image = image;
+    testimonial.fullnameUz = req.body.fullnameUz || testimonial.fullnameUz;
+    testimonial.fullnameRu = req.body.fullnameRu || testimonial.fullnameRu;
+    testimonial.fullnameEn = req.body.fullnameEn || testimonial.fullnameEn;
+    
+    testimonial.titleUz = req.body.titleUz || testimonial.titleUz;
+    testimonial.titleRu = req.body.titleRu || testimonial.titleRu;
+    testimonial.titleEn = req.body.titleEn || testimonial.titleEn;
+    
+    testimonial.contentUz = req.body.contentUz || testimonial.contentUz;
+    testimonial.contentRu = req.body.contentRu || testimonial.contentRu;
+    testimonial.contentEn = req.body.contentEn || testimonial.contentEn;
+    
+    testimonial.image = req.body.image || testimonial.image;
+    testimonial.isActive = req.body.isActive || testimonial.isActive;
 
     await testimonial.save();
 

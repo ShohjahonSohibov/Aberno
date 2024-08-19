@@ -11,23 +11,41 @@ const isAdminMiddleware = require('../middlewares/isAdminMiddleware');
  *     Testimonial:
  *       type: object
  *       required:
- *         - fullname
- *         - title
- *         - content
+ *         - fullnameUz
+ *         - titleUz
+ *         - contentUz
  *         - isActive
  *       properties:
  *         id:
  *           type: string
  *           description: The unique ID of the testimonial
- *         fullname:
+ *         fullnameUz:
  *           type: string
- *           description: The name of the person giving the testimonial
- *         title:
+ *           description: The full name of the person giving the testimonial in Uzbek
+ *         fullnameRu:
  *           type: string
- *           description: The title of the testimonial
- *         content:
+ *           description: The full name of the person giving the testimonial in Russian
+ *         fullnameEn:
  *           type: string
- *           description: The content of the testimonial
+ *           description: The full name of the person giving the testimonial in English
+ *         titleUz:
+ *           type: string
+ *           description: The title of the testimonial in Uzbek
+ *         titleRu:
+ *           type: string
+ *           description: The title of the testimonial in Russian
+ *         titleEn:
+ *           type: string
+ *           description: The title of the testimonial in English
+ *         contentUz:
+ *           type: string
+ *           description: The content of the testimonial in Uzbek
+ *         contentRu:
+ *           type: string
+ *           description: The content of the testimonial in Russian
+ *         contentEn:
+ *           type: string
+ *           description: The content of the testimonial in English
  *         image:
  *           type: string
  *           description: URL of the testimonial image
@@ -36,9 +54,15 @@ const isAdminMiddleware = require('../middlewares/isAdminMiddleware');
  *           description: Status indicating if the testimonial is active
  *       example:
  *         id: "64a6c8b9d9f1e723f17c2c3b"
- *         fullname: "John Doe"
- *         title: "Excellent Service"
- *         content: "The service was outstanding and exceeded my expectations."
+ *         fullnameUz: "John Doe"
+ *         fullnameRu: "Иван Иванов"
+ *         fullnameEn: "John Doe"
+ *         titleUz: "Excellent Service"
+ *         titleRu: "Отличное обслуживание"
+ *         titleEn: "Excellent Service"
+ *         contentUz: "The service was outstanding and exceeded my expectations."
+ *         contentRu: "Обслуживание было выдающимся и превзошло все мои ожидания."
+ *         contentEn: "The service was outstanding and exceeded my expectations."
  *         image: "http://example.com/image.jpg"
  *         isActive: true
  * 
@@ -54,9 +78,15 @@ const isAdminMiddleware = require('../middlewares/isAdminMiddleware');
  *         success: true
  *         data:
  *           id: "64a6c8b9d9f1e723f17c2c3b"
- *           fullname: "John Doe"
- *           title: "Excellent Service"
- *           content: "The service was outstanding and exceeded my expectations."
+ *           fullnameUz: "John Doe"
+ *           fullnameRu: "Иван Иванов"
+ *           fullnameEn: "John Doe"
+ *           titleUz: "Excellent Service"
+ *           titleRu: "Отличное обслуживание"
+ *           titleEn: "Excellent Service"
+ *           contentUz: "The service was outstanding and exceeded my expectations."
+ *           contentRu: "Обслуживание было выдающимся и превзошло все мои ожидания."
+ *           contentEn: "The service was outstanding and exceeded my expectations."
  *           image: "http://example.com/image.jpg"
  *           isActive: true
  * 
@@ -103,6 +133,7 @@ router.post('/', authMiddleware, isAdminMiddleware, testimonialController.create
  *   get:
  *     summary: Get all testimonials
  *     tags: [Testimonials]
+ *     security: []
  *     parameters:
  *       - in: query
  *         name: isActive
@@ -174,7 +205,7 @@ router.get('/', testimonialController.getTestimonials);
  *       500:
  *         description: Server error
  */
-router.get('/:id', testimonialController.getSingleTestimonial);
+router.get('/:id', authMiddleware, isAdminMiddleware, testimonialController.getSingleTestimonial);
 
 /**
  * @swagger

@@ -2,18 +2,7 @@ const Category = require('../models/Category'); // Import your Category model
 
 // Create a new category
 exports.createCategory = async (req, res) => {
-  const { name } = req.body;
-
   try {
-    if (!name) {
-      return res.status(400).json({ message: 'Category name is required' });
-    }
-
-    const existingCategory = await Category.findOne({ name });
-    if (existingCategory) {
-      return res.status(400).json({ message: 'Category already exists' });
-    }
-
     const category = new Category(req.body);
     await category.save();
 
@@ -65,19 +54,20 @@ exports.getSingleCategory = async (req, res) => {
 
 exports.updateCategory = async (req, res) => {
   const { id } = req.params;
-  const { name } = req.body;
 
   try {
-    if (!name) {
-      return res.status(400).json({ message: 'Category name is required' });
-    }
 
     const category = await Category.findById({_id: id});
     if (!category) {
       return res.status(404).json({ message: 'Category not found' });
     }
 
-    category.name = name;
+    category.nameUz = req.body.nameUz || category.nameUz;
+    category.nameRu = req.body.nameRu || category.nameRu;
+    category.nameEn = req.body.nameEn || category.nameEn;
+    category.isActive = req.body.isActive || category.isActive;
+    category.brand = req.body.brand || category.brand;
+    
     await category.save();
 
     res.json({ message: 'Category updated successfully', category });

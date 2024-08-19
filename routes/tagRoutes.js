@@ -16,9 +16,15 @@ const isAdminMiddleware = require('../middlewares/isAdminMiddleware');
  *         id:
  *           type: string
  *           description: The unique ID of the tag
- *         name:
+ *         nameUz:
  *           type: string
- *           description: The name of the tag
+ *           description: The name of the brand in Uzbek
+ *         nameRu:
+ *           type: string
+ *           description: The name of the brand in Russian
+ *         nameEn:
+ *           type: string
+ *           description: The name of the brand in English
  *         isActive:
  *           type: boolean
  *           description: Status indicating if the tag is active
@@ -97,6 +103,7 @@ router.post('/', authMiddleware, isAdminMiddleware, tagController.createTag);
  *   get:
  *     summary: Get all tags
  *     tags: [Tags]
+ *     security: []
  *     parameters:
  *       - name: isActive
  *         in: query
@@ -132,6 +139,7 @@ router.get('/', tagController.getTags);
  *   get:
  *     summary: Get a single tag by ID
  *     tags: [Tags]
+ *     security: []
  *     parameters:
  *       - name: id
  *         in: path

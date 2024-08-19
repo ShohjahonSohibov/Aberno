@@ -8,15 +8,7 @@ exports.addComment = async (req, res) => {
   try {
     const newComment = new Comment(req.body);
     await newComment.save();
-    console.log(newComment)
-    if (req.body.post != "") {
-      console.log("inside post")
-      await Post.findByIdAndUpdate(req.body.post, { $push: { comments: newComment._id } });
-      console.log("after inside post")
-    }
-    if (req.body.productd != "") {
-      await Product.findByIdAndUpdate(req.body.productd, { $push: { comments: newComment._id } });
-    }
+
     res.status(201).json({ message: 'Comment added successfully', comment: newComment });
   } catch (error) {
     res.status(500).json({ message: 'Error adding comment', error });
@@ -79,8 +71,7 @@ exports.getSingleComment = async (req, res) => {
 // Update a comment
 exports.updateComment = async (req, res) => {
   const { id } = req.params;
-  const { content, rate, isActive } = req.body;
-
+  try {
   const existComment = await Comment.findById({_id: id});
   if (!existComment) {
     return res.status(404).json({ message: 'Comment not found' });
@@ -93,8 +84,7 @@ exports.updateComment = async (req, res) => {
     }
   }
 
-  try {
-    const updatedComment = await Comment.findByIdAndUpdate({_id: id}, { content, rate, isActive }, { new: true });
+    const updatedComment = await Comment.findByIdAndUpdate({_id: id}, req.body, { new: true });
     if (!updatedComment) {
       return res.status(404).json({ message: 'Comment not found' });
     }

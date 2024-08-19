@@ -2,21 +2,7 @@ const Tag = require('../models/Tag'); // Import your Tag model
 
 // Create a new tag
 exports.createTag = async (req, res) => {
-  const { name } = req.body;
-
   try {
-    // Ensure the name is provided
-    if (!name) {
-      return res.status(400).json({ message: 'Tag name is required' });
-    }
-
-    // Check if the tag already exists
-    const existingTag = await Tag.findOne({ name });
-    if (existingTag) {
-      return res.status(400).json({ message: 'Tag already exists' });
-    }
-
-    // Create and save the new tag
     const tag = new Tag(req.body);
     await tag.save();
 
@@ -57,7 +43,6 @@ exports.getSingleTag = async (req, res) => {
   const { id } = req.params;
 
   try {
-    // Find the tag by ID
     const tag = await Tag.findById(id);
     if (!tag) {
       return res.status(404).json({ message: 'Tag not found' });
@@ -73,22 +58,17 @@ exports.getSingleTag = async (req, res) => {
 // Update a tag
 exports.updateTag = async (req, res) => {
   const { id } = req.params;
-  const { name } = req.body;
-
   try {
-    // Ensure the name is provided
-    if (!name) {
-      return res.status(400).json({ message: 'Tag name is required' });
-    }
-
-    // Find the tag by ID
     const tag = await Tag.findById(id);
     if (!tag) {
       return res.status(404).json({ message: 'Tag not found' });
     }
 
-    // Update the tag
-    tag.name = name;
+    tag.nameUz = req.body.nameUz || tag.nameUz;
+    tag.nameRu = req.body.nameRu || tag.nameRu;
+    tag.nameEn = req.body.nameEn || tag.nameEn;
+    tag.isActive = req.body.isActive || tag.isActive;
+
     await tag.save();
 
     res.json({ message: 'Tag updated successfully', tag });

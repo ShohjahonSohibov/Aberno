@@ -16,9 +16,15 @@ const isAdminMiddleware = require('../middlewares/isAdminMiddleware');
  *         id:
  *           type: string
  *           description: The unique ID of the post category
- *         name:
+ *         nameUz:
  *           type: string
- *           description: The name of the post category
+ *           description: The name of the brand in Uzbek
+ *         nameRu:
+ *           type: string
+ *           description: The name of the brand in Russian
+ *         nameEn:
+ *           type: string
+ *           description: The name of the brand in English
  *         isActive:
  *           type: boolean
  *           description: Status indicating if the post category is active
@@ -83,6 +89,7 @@ router.post('/', authMiddleware, isAdminMiddleware, postCategoryController.creat
  *   get:
  *     summary: Get all post categories
  *     tags: [PostCategories]
+ *     security: []
  *     parameters:
  *       - in: query
  *         name: isActive
@@ -109,6 +116,7 @@ router.get('/', postCategoryController.getPostCategories);
  *   get:
  *     summary: Get a single post category by ID
  *     tags: [PostCategories]
+ *     security: []
  *     parameters:
  *       - in: path
  *         name: id

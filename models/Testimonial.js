@@ -1,9 +1,15 @@
 const mongoose = require('mongoose');
 
 const testimonialSchema = new mongoose.Schema({
-  fullname: { type: String, required: false },
-  title: { type: String, required: false },
-  content: { type: String, required: false },
+  fullnameUz: { type: String },
+  fullnameRu: { type: String },
+  fullnameEn: { type: String },
+  titleUz: { type: String },
+  titleRu: { type: String },
+  titleEn: { type: String },
+  contentUz: { type: String },
+  contentRu: { type: String },
+  contentEn: { type: String },
   image: { type: String, required: false },
   isActive: { type: Boolean, required: true, default: true },
 }, { timestamps: true });
