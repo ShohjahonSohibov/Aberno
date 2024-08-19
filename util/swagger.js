@@ -12,9 +12,9 @@ const options = {
       description: "API documentation for frontend and backend Aberno",
     },
     servers: [
-      // {
-      //   url: "https://e-education-backend-production-1f7a.up.railway.app/api",
-      // },
+      {
+        url: "https://aberno.onrender.com/api/v1",
+      },
       {
         url: "http://localhost:8000/api/v1",
       },
