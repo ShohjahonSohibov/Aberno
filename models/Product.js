@@ -10,7 +10,10 @@ const productSchema = new mongoose.Schema({
   descriptionUz: { type: String },
   descriptionRu: { type: String },
   descriptionEn: { type: String },
-  image: { type: String, required: false },
+  image: { 
+    main_image: { type: String },
+    images: { type: [String] }
+  },
   category: { type: mongoose.Schema.Types.ObjectId, ref: 'Category' },
   isActive: { type: Boolean, required: true, default: true }
 }, { timestamps: true });

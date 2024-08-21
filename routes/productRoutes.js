@@ -6,6 +6,80 @@ const isAdminMiddleware = require('../middlewares/isAdminMiddleware');
 
 /**
  * @swagger
+ * components:
+ *   schemas:
+ *     Product:
+ *       type: object
+ *       properties:
+ *         _id:
+ *           type: string
+ *         titleUz:
+ *           type: string
+ *         titleRu:
+ *           type: string
+ *         titleEn:
+ *           type: string
+ *         short_descriptionUz:
+ *           type: string
+ *         short_descriptionRu:
+ *           type: string
+ *         short_descriptionEn:
+ *           type: string
+ *         descriptionUz:
+ *           type: string
+ *         descriptionRu:
+ *           type: string
+ *         descriptionEn:
+ *           type: string
+ *         image:
+ *           type: object
+ *           properties:
+ *             main_image:
+ *               type: string
+ *             images:
+ *               type: array
+ *               items:
+ *                 type: string
+ *         category:
+ *           type: string
+ *           format: ObjectId
+ *         isActive:
+ *           type: boolean
+ *         createdAt:
+ *           type: string
+ *           format: date-time
+ *         updatedAt:
+ *           type: string
+ *           format: date-time
+ *       example:
+ *         _id: "607c191e810c19729de860ea"
+ *         titleUz: "Yangi Mahsulot"
+ *         titleRu: "Новый продукт"
+ *         titleEn: "New Product"
+ *         short_descriptionUz: "Mahsulotning qisqacha tavsifi."
+ *         short_descriptionRu: "Краткое описание продукта."
+ *         short_descriptionEn: "A short description of the product."
+ *         descriptionUz: "Mahsulotning batafsil tavsifi."
+ *         descriptionRu: "Подробное описание продукта."
+ *         descriptionEn: "A detailed description of the product."
+ *         image:
+ *           main_image: "https://example.com/main-image.jpg"
+ *           images: 
+ *             - "https://example.com/image1.jpg"
+ *             - "https://example.com/image2.jpg"
+ *         category: "607c191e810c19729de860ea"
+ *         isActive: true
+ *         createdAt: "2023-08-20T14:38:00.000Z"
+ *         updatedAt: "2023-08-20T14:38:00.000Z"
+ *   securitySchemes:
+ *     bearerAuth:
+ *       type: http
+ *       scheme: bearer
+ *       bearerFormat: JWT
+ */
+
+/**
+ * @swagger
  * tags:
  *   name: Products
  *   description: API for managing products
@@ -24,58 +98,14 @@ const isAdminMiddleware = require('../middlewares/isAdminMiddleware');
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             properties:
- *               titleUz:
- *                 type: string
- *                 example: "Yangi Mahsulot"
- *               titleRu:
- *                 type: string
- *                 example: "Новый продукт"
- *               titleEn:
- *                 type: string
- *                 example: "New Product"
- *               short_descriptionUz:
- *                 type: string
- *                 example: "Mahsulotning qisqacha tavsifi."
- *               short_descriptionRu:
- *                 type: string
- *                 example: "Краткое описание продукта."
- *               short_descriptionEn:
- *                 type: string
- *                 example: "A short description of the product."
- *               descriptionUz:
- *                 type: string
- *                 example: "Mahsulotning batafsil tavsifi."
- *               descriptionRu:
- *                 type: string
- *                 example: "Подробное описание продукта."
- *               descriptionEn:
- *                 type: string
- *                 example: "A detailed description of the product."
- *               image:
- *                 type: string
- *                 example: "https://example.com/image.jpg"
- *               category:
- *                 type: string
- *                 format: ObjectId
- *                 example: "607c191e810c19729de860ea"
- *               isActive:
- *                 type: boolean
- *                 example: true
+ *             $ref: '#/components/schemas/Product'
  *     responses:
  *       201:
  *         description: Product created successfully
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: "Product created successfully"
- *                 product:
- *                   $ref: '#/components/schemas/Product'
+ *               $ref: '#/components/schemas/Product'
  *       500:
  *         description: Error creating product
  */
@@ -165,46 +195,14 @@ router.get('/:id', productController.getProductById);
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             properties:
- *               titleUz:
- *                 type: string
- *               titleRu:
- *                 type: string
- *               titleEn:
- *                 type: string
- *               short_descriptionUz:
- *                 type: string
- *               short_descriptionRu:
- *                 type: string
- *               short_descriptionEn:
- *                 type: string
- *               descriptionUz:
- *                 type: string
- *               descriptionRu:
- *                 type: string
- *               descriptionEn:
- *                 type: string
- *               image:
- *                 type: string
- *               category:
- *                 type: string
- *                 format: ObjectId
- *               isActive:
- *                 type: boolean
+ *             $ref: '#/components/schemas/Product'
  *     responses:
  *       200:
  *         description: Product updated successfully
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: "Product updated successfully"
- *                 product:
- *                   $ref: '#/components/schemas/Product'
+ *               $ref: '#/components/schemas/Product'
  *       404:
  *         description: Product not found
  *       500:
@@ -243,47 +241,5 @@ router.put('/:id', authMiddleware, isAdminMiddleware, productController.updatePr
  *         description: Error deleting product
  */
 router.delete('/:id', authMiddleware, isAdminMiddleware, productController.deleteProduct);
-
-/**
- * @swagger
- * components:
- *   schemas:
- *     Product:
- *       type: object
- *       properties:
- *         _id:
- *           type: string
- *         titleUz:
- *           type: string
- *         titleRu:
- *           type: string
- *         titleEn:
- *           type: string
- *         short_descriptionUz:
- *           type: string
- *         short_descriptionRu:
- *           type: string
- *         short_descriptionEn:
- *           type: string
- *         descriptionUz:
- *           type: string
- *         descriptionRu:
- *           type: string
- *         descriptionEn:
- *           type: string
- *         image:
- *           type: string
- *         category:
- *           type: string
- *           format: ObjectId
- *         isActive:
- *           type: boolean
- *         createdAt:
- *           type: string
- *           format: date-time
- *         updatedAt:
- *           type: string
- *           format: date-time
- */
 
 module.exports = router;
