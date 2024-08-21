@@ -1,6 +1,10 @@
 const express = require("express");
+
+const authMiddleware = require('../middlewares/authMiddleware');
+const isAdminMiddleware = require('../middlewares/isAdminMiddleware');
+const upload = require('../middlewares/uploadImageConfig');
+
 const authRoutes = require("./authRoutes");
-const filterRoutes = require("./filterRoutes");
 const brandRoutes = require("./brandRoutes");
 const categoryRoutes = require("./categoryRoutes");
 const productRoutes = require("./productRoutes");
@@ -12,14 +16,11 @@ const postRoutes = require("./postRoutes");
 const postCategoryRoutes = require("./postCategoryRoutes");
 const testimonialRoutes = require("./testimonialRoutes");
 
-// const { uploadvideo } = require("../controllers/video.controller");
-// const upload = require("../middlewares/uploadVideoConfig");
-// const { authenticateToken } = require("../middlewares/auth.middleware");
+const uploadController= require("../controllers/uploadController");
 
 const router = express.Router();
 
 router.use('/auth', authRoutes);
-// router.use('/filters', filterRoutes);
 router.use('/brands', brandRoutes);
 router.use('/categories', categoryRoutes);
 router.use('/products', productRoutes);
@@ -31,29 +32,23 @@ router.use('/posts', postRoutes);
 router.use('/post-categories', postCategoryRoutes);
 router.use('/testimonials', testimonialRoutes);
 
-// router.use(
-//   "/videos",
-//   authenticateToken,
-//   checkRole(["admin", "mentor", "teacher"]),
-//   upload.single("video"),
-//   uploadvideo
-// );
+router.post("/image", authMiddleware, isAdminMiddleware, upload.single("image"), uploadController.uploadImage);
 
 module.exports = router;
 
 /**
  * @swagger
  * tags:
- *   name: Videos
- *   description: API for uploading videos
+ *   name: Image
+ *   description: API for uploading images
  */
 
 /**
  * @swagger
- * /videos:
+ * /image:
  *   post:
- *     summary: Upload a video
- *     tags: [Videos]
+ *     summary: Upload a image
+ *     tags: [Image]
  *     security:
  *       - bearerAuth: []
  *     requestBody:
@@ -63,13 +58,13 @@ module.exports = router;
  *           schema:
  *             type: object
  *             properties:
- *               video:
+ *               image:
  *                 type: string
  *                 format: binary
- *                 description: The video file to upload
+ *                 description: The image file to upload
  *     responses:
  *       200:
- *         description: Video uploaded successfully
+ *         description: image uploaded successfully
  *         content:
  *           application/json:
  *             schema:
@@ -77,19 +72,19 @@ module.exports = router;
  *               properties:
  *                 success:
  *                   type: boolean
- *                   description: Indicates if the video was uploaded successfully
+ *                   description: Indicates if the image was uploaded successfully
  *                 message:
  *                   type: string
  *                   description: A message confirming the upload
- *                 videoUrl:
+ *                 imageUrl:
  *                   type: string
- *                   description: The URL of the uploaded video
+ *                   description: The URL of the uploaded image
  *       400:
  *         description: Bad request. Invalid input.
  *       401:
  *         description: Unauthorized. Token is missing or invalid.
  *       403:
- *         description: Forbidden. You do not have permission to upload videos.
+ *         description: Forbidden. You do not have permission to upload images.
  *       500:
  *         description: Internal server error.
  */
