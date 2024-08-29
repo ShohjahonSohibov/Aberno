@@ -30,8 +30,10 @@ exports.getTags = async (req, res) => {
     .skip(skip)
     .limit(parseInt(limit))
     .sort({'_id': -1});
-    
-    res.json(tags);
+
+    const counts = await Tag.countDocuments(query)
+
+    res.json({counts, tags});
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server error');

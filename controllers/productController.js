@@ -30,7 +30,7 @@ exports.getProducts = async (req, res) => {
     const skip = (page - 1) * limit;
 
     let sort = {};
-    sort['createdAt'] = sortByCreatedAt === 'asc' ? 1 : -1;
+    sort['_id'] = sortByCreatedAt === 'asc' ? 1 : -1;
     if (sortRate) {
       sort['rate'] = sortRate === 'asc' ? 1 : -1;
     }
@@ -44,7 +44,9 @@ exports.getProducts = async (req, res) => {
     .limit(parseInt(limit))
     .sort(sort);
 
-    res.status(200).json(products);
+    const counts = await Product.countDocuments(query)
+
+    res.status(200).json({counts, products});
   } catch (err) {
     console.error(err.message);
     res.status(500).json({ message: 'Error fetching products', error: err.message });

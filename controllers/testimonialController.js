@@ -23,7 +23,7 @@ exports.getTestimonials = async (req, res) => {
     const skip = (page - 1) * limit;
 
     let sort = {};
-    sort['createdAt'] = sortByCreatedAt === 'asc' ? 1 : -1;
+    sort['_id'] = sortByCreatedAt === 'asc' ? 1 : -1;
     if (sortRate) {
       sort['rate'] = sortRate === 'asc' ? 1 : -1;
     }
@@ -33,7 +33,9 @@ exports.getTestimonials = async (req, res) => {
     .limit(parseInt(limit))
     .sort(sort);
 
-    res.json(testimonials);
+    const counts = await Testimonial.countDocuments(query)
+
+    res.json({counts, testimonials});
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server error');

@@ -11,6 +11,7 @@ exports.createClient = async (req, res) => {
     res.status(500).send("Server error");
   }
 };
+
 exports.getClients = async (req, res) => {
   try {
     const { isActive } = req.query;

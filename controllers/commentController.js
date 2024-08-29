@@ -35,7 +35,7 @@ exports.getComments = async (req, res) => {
     const skip = (page - 1) * limit;
 
     let sort = {};
-    sort['createdAt'] = sortByCreatedAt === 'asc' ? 1 : -1;
+    sort['_id'] = sortByCreatedAt === 'asc' ? 1 : -1;
     if (sortRate) {
       sort['rate'] = sortRate === 'asc' ? 1 : -1;
     }
@@ -47,7 +47,6 @@ exports.getComments = async (req, res) => {
     .sort(sort);
 
     const counts = await Comment.countDocuments(query)
-
 
     res.status(200).json({counts, comments});
   } catch (error) {

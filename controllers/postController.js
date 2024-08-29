@@ -77,7 +77,9 @@ exports.getAllPosts = async (req, res) => {
       .populate('tags', '_id nameUz nameRu nameEn')
       .sort({'_id': -1});
 
-      res.json(posts);
+      const counts = await Post.countDocuments(query)
+
+      res.json({counts, posts});
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server error');

@@ -6,6 +6,7 @@ const upload = require('../middlewares/uploadImageConfig');
 
 const authRoutes = require("./authRoutes");
 const brandRoutes = require("./brandRoutes");
+const leadRoutes = require("./leadRoutes");
 const clientRoutes = require("./clientRoutes");
 const categoryRoutes = require("./categoryRoutes");
 const productRoutes = require("./productRoutes");
@@ -23,6 +24,7 @@ const router = express.Router();
 
 router.use('/auth', authRoutes);
 router.use('/brands', brandRoutes);
+router.use('/leads', leadRoutes);
 router.use('/clients', clientRoutes);
 router.use('/categories', categoryRoutes);
 router.use('/products', productRoutes);
