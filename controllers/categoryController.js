@@ -3,6 +3,7 @@ const Category = require('../models/Category'); // Import your Category model
 // Create a new category
 exports.createCategory = async (req, res) => {
   try {
+    console.log("enter")
     const category = new Category(req.body);
     await category.save();
 
