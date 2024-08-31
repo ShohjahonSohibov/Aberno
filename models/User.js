@@ -10,7 +10,7 @@ function validatePassword(password) {
 }
 
 const userSchema = new mongoose.Schema({
-  name: { type: String, required: false },
+  fullname: { type: String, required: false },
   phone: { type: String, required: false, unique: true },
   email: { type: String, required: false, unique: true },
   password: { 

@@ -18,18 +18,18 @@ exports.getUserProfile = async (req, res) => {
 
 exports.updateUserProfile = async (req, res) => {
   try {
-    const { name, email, phone, password } = req.body;
+    const { fullname, email, phone, password } = req.body;
     const user = await User.findById({_id: req.params.id});
 
     if (!user) {
       return res.status(404).json({ message: 'Admin not found' });
     }
-
+    console.log(req.body)
     if (req.user.id !== user.id) {
       return res.status(403).json({ message: 'Access denied' });
     }
 
-    user.name = name || user.name;
+    user.fullname = fullname || user.fullname;
     user.email = email || user.email;
     user.phone = phone || user.phone;
     user.password = password || user.password;
