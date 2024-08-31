@@ -39,8 +39,11 @@ exports.getFilterBrands = async (_, res) => {
 
     const brands = await Brand.find(query);
     for (let i = 0; i < brands.length; i++) {
-      const category = await Category.findOne(query);
-      brands[i].category = category;
+      query["brand"] = brands[i]._id
+      const categories = await Category.find(query);
+      categories.forEach(category => {
+        brands[i].category.push(category);
+      });
     }
     res.json(brands);
   } catch (err) {

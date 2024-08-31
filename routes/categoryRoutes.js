@@ -11,7 +11,6 @@ const isAdminMiddleware = require('../middlewares/isAdminMiddleware');
  *     Category:
  *       type: object
  *       required:
- *         - name
  *         - brand
  *       properties:
  *         id:
@@ -35,7 +34,7 @@ const isAdminMiddleware = require('../middlewares/isAdminMiddleware');
  *       example:
  *         id: "64a6c8b9d9f1e723f17c2c3b"
  *         brand: "64a6c8b9d9f1e723f17c2c3c"
- *         nameUz: "Category Name Uz"
+ *         nameUz: "Category Name Uz test"
  *         nameRu: "Category Name Ru"
  *         nameEn: "Category Name En"
  *         isActive: true
@@ -53,7 +52,9 @@ const isAdminMiddleware = require('../middlewares/isAdminMiddleware');
  *         data:
  *           id: "64a6c8b9d9f1e723f17c2c3b"
  *           brand: "64a6c8b9d9f1e723f17c2c3c"
- *           name: "Category Name"
+ *           nameUz: "Category Name Uz"
+ *           nameRu: "Category Name Ru"
+ *           nameEn: "Category Name En"
  *           isActive: true
  * 
  *   securitySchemes:
