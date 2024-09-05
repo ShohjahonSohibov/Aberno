@@ -94,12 +94,11 @@ exports.deleteTestimonial = async (req, res) => {
   const { id } = req.params;
 
   try {
-    const testimonial = await Testimonial.findById({_id: id});
+    const testimonial = await Testimonial.findByIdAndDelete({_id: id});
     if (!testimonial) {
       return res.status(404).json({ message: 'Testimonial not found' });
     }
 
-    await testimonial.remove();
     res.json({ message: 'Testimonial deleted successfully' });
   } catch (err) {
     console.error(err.message);

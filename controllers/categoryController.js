@@ -16,16 +16,22 @@ exports.createCategory = async (req, res) => {
 
 exports.getCategories = async (req, res) => {
   try {
-    const { isActive } = req.query;
+    const { isActive, brandId } = req.query;
     let query = {}
+    let queryPopulate = {}
   
     if (isActive) {
       query["isActive"] = isActive
     } 
+    if (brandId) {
+      query["brand"] = brandId
+      queryPopulate["_id"] = brandId
+    } 
+    queryPopulate["isActive"] = true
 
     const categories = await Category.find(query).populate({
       path: 'brand',
-      match: { isActive: true }, // Only populate active brands
+      match: queryPopulate, // Only populate active brands
     });
     res.json(categories);
   } catch (err) {
@@ -82,12 +88,11 @@ exports.deleteCategory = async (req, res) => {
   const { id } = req.params;
 
   try {
-    const category = await Category.findById({_id: id});
+    const category = await Category.findByIdAndDelete({_id: id});
     if (!category) {
       return res.status(404).json({ message: 'Category not found' });
     }
 
-   await category.remove();
     res.json({ message: 'Category deleted successfully' });
   } catch (err) {
     console.error(err.message);

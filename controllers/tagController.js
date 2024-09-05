@@ -86,12 +86,11 @@ exports.deleteTag = async (req, res) => {
 
   try {
     // Find and delete the tag
-    const tag = await Tag.findById({_id: id});
+    const tag = await Tag.findByIdAndDelete({_id: id});
     if (!tag) {
       return res.status(404).json({ message: 'Tag not found' });
     }
 
-    await tag.remove();
     res.json({ message: 'Tag deleted successfully' });
   } catch (err) {
     console.error(err.message);

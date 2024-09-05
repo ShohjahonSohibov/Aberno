@@ -123,13 +123,11 @@ exports.updatePost = async (req, res) => {
 // Delete a post
 exports.deletePost = async (req, res) => {
   try {
-    const post = await Post.findById(req.params.id);
+    const post = await Post.findByIdAndDelete(req.params.id);
 
     if (!post) {
       return res.status(404).json({ message: 'Post not found' });
     }
-
-    await Post.findByIdAndDelete(req.params.id);
 
     res.json({ message: 'Post deleted successfully' });
   } catch (err) {

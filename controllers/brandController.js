@@ -95,7 +95,7 @@ exports.deleteBrand = async (req, res) => {
   const { id } = req.params;
 
   try {
-    const brand = await Brand.findById({ _id: id });
+    const brand = await Brand.findByIdAndDelete({ _id: id });
     if (!brand) {
       return res.status(404).json({ message: "Brand not found" });
     }
@@ -105,7 +105,6 @@ exports.deleteBrand = async (req, res) => {
       { $unset: { brand: "" } } // or you can use $pull if brand is an array in categories
     );
 
-    await brand.remove();
     res.json({ message: "Brand deleted successfully" });
   } catch (err) {
     console.error(err.message);

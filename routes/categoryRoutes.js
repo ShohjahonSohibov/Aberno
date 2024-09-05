@@ -99,6 +99,17 @@ router.post('/', authMiddleware, isAdminMiddleware, categoryController.createCat
  *     summary: Get all categories
  *     tags: [Categories]
  *     security: []
+ *     parameters:
+ *       - in: query
+ *         name: isActive
+ *         schema:
+ *           type: boolean
+ *         description: Filter clients by active status
+ *       - in: query
+ *         name: brandId
+ *         schema:
+ *           type: string
+ *         description: Filter clients by brand id
  *     responses:
  *       200:
  *         description: A list of categories
