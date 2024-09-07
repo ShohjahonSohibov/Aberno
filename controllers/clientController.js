@@ -14,11 +14,14 @@ exports.createClient = async (req, res) => {
 
 exports.getClients = async (req, res) => {
   try {
-    const { isActive } = req.query;
+    const { isActive, brand } = req.query;
     let query = {};
 
     if (isActive) {
       query["isActive"] = isActive; 
+    }
+    if (brand) {
+      query["brand"] = brand; 
     }
 
     const clients = await Client.find(query);
@@ -58,6 +61,7 @@ exports.updateClient = async (req, res) => {
     client.nameRu = req.body.nameRu || client.nameRu;
     client.nameEn = req.body.nameEn || client.nameEn;
     client.image = req.body.image || client.image;
+    client.brand = req.body.brand || client.brand;
     client.isActive = req.body.isActive !== undefined ? req.body.isActive : client.isActive;
 
     await client.save();

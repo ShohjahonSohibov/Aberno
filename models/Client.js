@@ -5,6 +5,7 @@ const clientSchema = new mongoose.Schema({
   nameRu: { type: String },
   nameEn: { type: String },
   image: { type: String },
+  brand: { type: mongoose.Schema.Types.ObjectId, ref: 'Brand' },
   isActive: { type: Boolean, required: true, default: true }
 }, { timestamps: true });
 

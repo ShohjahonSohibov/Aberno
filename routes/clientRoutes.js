@@ -26,6 +26,9 @@ const isAdminMiddleware = require('../middlewares/isAdminMiddleware');
  *         image:
  *           type: string
  *           description: URL to the client's image
+ *         brand:
+ *           type: string
+ *           description: id of the brand
  *         isActive:
  *           type: boolean
  *           description: Indicates if the client is active
@@ -34,6 +37,7 @@ const isAdminMiddleware = require('../middlewares/isAdminMiddleware');
  *         nameUz: "Mijoz Nomi"
  *         nameRu: "Имя Клиента"
  *         nameEn: "Client Name"
+ *         brand: "66c5c8bd88a788baef19a78e"
  *         image: "https://example.com/image.png"
  *         isActive: true
  * 
@@ -103,6 +107,11 @@ router.post('/', authMiddleware, isAdminMiddleware, clientController.createClien
  *         schema:
  *           type: boolean
  *         description: Filter clients by active status
+ *       - in: query
+ *         name: brand
+ *         schema:
+ *           type: string
+ *         description: Filter clients by brand id
  *     responses:
  *       200:
  *         description: A list of clients
