@@ -13,7 +13,7 @@ const options = {
     },
     servers: [
       {
-        url: "https://aberno.onrender.com/api/v1",
+        url: "http://147.45.104.248:3000/api/v1",
       },
       {
         url: "http://localhost:8000/api/v1",
