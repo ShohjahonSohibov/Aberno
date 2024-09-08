@@ -32,14 +32,7 @@ const isAdminMiddleware = require('../middlewares/isAdminMiddleware');
  *         descriptionEn:
  *           type: string
  *         image:
- *           type: object
- *           properties:
- *             main_image:
- *               type: string
- *             images:
- *               type: array
- *               items:
- *                 type: string
+ *           type: string
  *         category:
  *           type: string
  *           format: ObjectId
@@ -62,11 +55,7 @@ const isAdminMiddleware = require('../middlewares/isAdminMiddleware');
  *         descriptionUz: "Mahsulotning batafsil tavsifi."
  *         descriptionRu: "Подробное описание продукта."
  *         descriptionEn: "A detailed description of the product."
- *         image:
- *           main_image: "https://example.com/main-image.jpg"
- *           images: 
- *             - "https://example.com/image1.jpg"
- *             - "https://example.com/image2.jpg"
+ *         image: "https://example.com/main-image.jpg"
  *         category: "607c191e810c19729de860ea"
  *         isActive: true
  *         createdAt: "2023-08-20T14:38:00.000Z"

@@ -38,12 +38,16 @@ exports.getProducts = async (req, res) => {
     const products = await Product.find(query)
     .populate({
       path: 'category',
-      match: { isActive: true }, 
+      match: { isActive: true },
+      populate: {
+        path: 'brand', 
+        select: 'nameUz nameRu nameEn _id'
+      }
     })
     .skip(skip)
     .limit(parseInt(limit))
     .sort(sort);
-
+  
     const counts = await Product.countDocuments(query)
 
     res.status(200).json({counts, products});
