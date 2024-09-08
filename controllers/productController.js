@@ -50,7 +50,7 @@ exports.getProducts = async (req, res) => {
   
     const counts = await Product.countDocuments(query)
 
-    res.status(200).json({counts, products});
+    res.status(200).json({products});
   } catch (err) {
     console.error(err.message);
     res.status(500).json({ message: 'Error fetching products', error: err.message });
